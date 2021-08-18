@@ -1,0 +1,71 @@
+version: '2'
+services:
+    bd:
+        container_name: testenetshow-bd
+        build:
+            context: .
+            dockerfile: Dockerfile-bd
+        volumes:
+            - ./build/servico:/var/www/html
+        image: gcr.io/lucid-arch-310121/testenetshow-bd
+        environment:
+            POSTGRES_USER: testenetshow
+            POSTGRES_PASSWORD: testenetshow
+            POSTGRES_DB: testenetshow
+        command: postgres -c config_file=/etc/postgresql/postgresql.conf
+        ports:
+            - "5434:5432"
+        restart: always
+        labels:
+            kompose.service.type: LoadBalancer
+        networks:
+            testenetshow-net:
+                ipv4_address: 35.197.112.231
+    servico:
+        container_name: testenetshow-servico
+        build:
+            context: .
+            dockerfile: Dockerfile-servico
+        volumes:
+            - ./codigo-fonte/servico:/var/www/html
+        image: gcr.io/lucid-arch-310121/testenetshow-servico
+        ports:
+            - "8080:80"
+        restart: always
+        links:
+            - bd
+        depends_on:
+            - bd
+        labels:
+            kompose.service.type: LoadBalancer
+        networks:
+            testenetshow-net:
+                ipv4_address: 35.197.112.232
+    cliente:
+        container_name: testenetshow-cliente
+        build:
+            context: .
+            dockerfile: Dockerfile-cliente
+        volumes:
+            - ./codigo-fonte/cliente:/var/www/html
+        image: gcr.io/lucid-arch-310121/testenetshow-cliente
+
+        ports:
+            - "80:8080"
+        restart: always
+        depends_on:
+            - servico
+        labels:
+            kompose.service.type: LoadBalancer
+        networks:
+            testenetshow-net:
+                ipv4_address: 35.197.112.233
+networks:
+    testenetshow-net:
+        ipam:
+            config:
+                - subnet: 35.197.0.0/16
+                  #docker-compose v3+ do not use ip_range
+                  ip_range: 35.197.5.0/24
+
+            
