@@ -1,2 +1,3 @@
 # Project exclude paths
 /codigo-fonte/cliente/vue.config.js
+/.idea

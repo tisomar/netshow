@@ -28,9 +28,10 @@ COPY ./build/servico/000-default-servico.conf /etc/apache2/sites-available/000-d
 # COMPOSER
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
+COPY codigo-fonte/servico/ /var/www/html/
 COPY build/servico/build.sh /usr/local/bin/build.sh
 
 RUN chmod 777 -R /var/www/html/
 RUN chmod 777 -R /usr/local/bin/build.sh
-
+EXPOSE 80
 CMD [ "sh", "-c", "/usr/local/bin/build.sh; /usr/local/bin/apache2-foreground; cron -f" ]

@@ -7,7 +7,7 @@ services:
             dockerfile: Dockerfile-bd
         volumes:
             - ./build/servico:/var/www/html
-        image: gcr.io/lucid-arch-310121/testenetshow-bd
+        image: gcr.io/plasma-amphora-323417/testenetshow-bd
         environment:
             POSTGRES_USER: testenetshow
             POSTGRES_PASSWORD: testenetshow
@@ -16,11 +16,6 @@ services:
         ports:
             - "5434:5432"
         restart: always
-        labels:
-            kompose.service.type: LoadBalancer
-        networks:
-            testenetshow-net:
-                ipv4_address: 35.197.112.231
     servico:
         container_name: testenetshow-servico
         build:
@@ -28,7 +23,7 @@ services:
             dockerfile: Dockerfile-servico
         volumes:
             - ./codigo-fonte/servico:/var/www/html
-        image: gcr.io/lucid-arch-310121/testenetshow-servico
+        image: gcr.io/plasma-amphora-323417/testenetshow-servico
         ports:
             - "8080:80"
         restart: always
@@ -36,11 +31,6 @@ services:
             - bd
         depends_on:
             - bd
-        labels:
-            kompose.service.type: LoadBalancer
-        networks:
-            testenetshow-net:
-                ipv4_address: 35.197.112.232
     cliente:
         container_name: testenetshow-cliente
         build:
@@ -48,24 +38,12 @@ services:
             dockerfile: Dockerfile-cliente
         volumes:
             - ./codigo-fonte/cliente:/var/www/html
-        image: gcr.io/lucid-arch-310121/testenetshow-cliente
+        image: gcr.io/plasma-amphora-323417/testenetshow-cliente
 
         ports:
             - "80:8080"
         restart: always
         depends_on:
             - servico
-        labels:
-            kompose.service.type: LoadBalancer
-        networks:
-            testenetshow-net:
-                ipv4_address: 35.197.112.233
-networks:
-    testenetshow-net:
-        ipam:
-            config:
-                - subnet: 35.197.0.0/16
-                  #docker-compose v3+ do not use ip_range
-                  ip_range: 35.197.5.0/24
 
             

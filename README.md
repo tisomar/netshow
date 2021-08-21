@@ -34,8 +34,6 @@ docker logs testenetshow-bd --follow
 Obs: É necessário acompanhar o log até o fim a instalação das dependências do container cliente, servidor e bd(acompanhe no terminal até o container
 cliente exibir -> App running at: - Local:   http://localhost:8080/)
 
-docker exec -it testenetshow-servico php artisan migrate
-
 ```
 
 ### ** ROTA ** ###
@@ -45,16 +43,7 @@ cadastrar contato: [http://localhost:8080/api/contato](http://localhost:8080/api
 ### ** BANCO DE DADOS ** ###
 
 
-| Banco de Dados no Container|            |
-|---------------|---------------          | 
-| **Host**             | 35.197.112.231   |
-| **Porta**            | 5432             |
-| **banco de dados**   | testenetshow     |
-| **Usuário**          | testenetshow     |
-| **Senha**            | testenetshow     |
-
-
-| Banco de Dados Acesso Externo|          |
+| Acesso Banco de Dados |          |
 |---------------|---------------          | 
 | **Host**             | localhost        |
 | **Porta**            | 5434             |

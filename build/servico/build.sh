@@ -32,6 +32,8 @@ php artisan view:clear
 echo "Configurando o cache da aplicação"
 php artisan key:generate
 php artisan config:cache
+echo "Executando as migrations"
+php artisan migrate
 echo "Configurando o storage da aplicação"
 php artisan storage:link
 
