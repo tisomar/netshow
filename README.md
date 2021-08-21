@@ -57,7 +57,7 @@ cadastrar contato: [http://localhost:8080/api/contato](http://localhost:8080/api
 | Banco de Dados Acesso Externo|          |
 |---------------|---------------          | 
 | **Host**             | localhost        |
-| **Porta**            | 5432             |
+| **Porta**            | 5434             |
 | **banco de dados**   | testenetshow     |
 | **Usuário**          | testenetshow     |
 | **Senha**            | testenetshow     |
